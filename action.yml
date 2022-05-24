@@ -1,0 +1,33 @@
+name: 'k8s login'
+description: 'performs login to a k8s cluster'
+inputs:
+  k8s-host-url:
+    description: "api url to a k8s cluster"
+    required: true
+  k8s-token:
+    description: "k8s account token"
+    required: true
+  k8s-cluster-name:
+    description: "k8s cluster name"
+    required: true
+    default: "cluster-${GITHUB_RUN_NUMBER}"
+  k8s-user-name:
+    description: "k8s user name"
+    required: true
+    default: "user-${GITHUB_RUN_NUMBER}"
+
+runs:
+  using: "composite"
+  steps:
+  - name: login to k8s cluster
+    env:
+      K8S_HOST_URL: ${{ inputs.k8s-host-url }}
+      K8S_TOKEN: ${{ inputs.k8s-token }}
+      K8S_CLUSTER_NAME: ${{ inputs.k8s-cluster-name }}
+      K8S_USER_NAME: ${{ inputs.k8s-user-name }
+    run: |
+      kubectl config set-cluster "${K8S_CLUSTER_NAME}" --server="${K8S_HOST_URL}" --insecure-skip-tls-verify=true
+      kubectl config set-credentials "${K8S_USER_NAME}" --token="${K8S_TOKEN}"
+      kubectl config set-context "${K8S_CLUSTER_NAME}" --cluster="${K8S_CLUSTER_NAME}" --user="${K8S_USER_NAME}"
+      kubectl config use-context "${K8S_CLUSTER_NAME}"
+    shell: bash
