@@ -1,4 +1,4 @@
-name: 'k8s login'
+name: 'k8s-login'
 description: 'performs login to a k8s cluster'
 inputs:
   k8s-host-url:
@@ -15,16 +15,30 @@ inputs:
     description: "k8s user name"
     required: true
     default: "user-${GITHUB_RUN_NUMBER}"
+  kubectl-version:
+    description: "kubectl version"
+    required: true
+    default: "latest"
+  helm-version:
+    description: "helm version"
+    required: true
+    default: "3.9.4"
 
 runs:
   using: "composite"
   steps:
+  - uses: azure/setup-kubectl@v3
+    with:
+      version: ${{ inputs.kubectl-version}}
+  - uses: azure/setup-helm@v3
+    with:
+      version: ${{ inputs.helm-version }}
   - name: login to k8s cluster
     env:
       K8S_HOST_URL: ${{ inputs.k8s-host-url }}
       K8S_TOKEN: ${{ inputs.k8s-token }}
       K8S_CLUSTER_NAME: ${{ inputs.k8s-cluster-name }}
-      K8S_USER_NAME: ${{ inputs.k8s-user-name }
+      K8S_USER_NAME: ${{ inputs.k8s-user-name }}
     run: |
       kubectl config set-cluster "${K8S_CLUSTER_NAME}" --server="${K8S_HOST_URL}" --insecure-skip-tls-verify=true
       kubectl config set-credentials "${K8S_USER_NAME}" --token="${K8S_TOKEN}"
