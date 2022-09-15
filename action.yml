@@ -1,5 +1,5 @@
-name: 'k8s-login'
-description: 'performs login to a k8s cluster'
+name: 'prepare-k8s-env'
+description: 'preparing a k8s cluster'
 inputs:
   k8s-host-url:
     description: "api url to a k8s cluster"
