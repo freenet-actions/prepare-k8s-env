@@ -30,6 +30,11 @@ runs:
   - uses: azure/setup-kubectl@v3
     with:
       version: ${{ inputs.kubectl-version}}
+    # Wird fuer azure/setup-helm@v3 step benoetigt. Falls unzip nicht auf dem Runner vorhanden ist, schlaegt die Action fehl  
+  - name: Install unzip
+    run: |
+      apt-get update && \
+      apt-get install unzip -y 
   - uses: azure/setup-helm@v3
     with:
       version: ${{ inputs.helm-version }}
