@@ -15,7 +15,7 @@ This action implements the Kubernetes (K8s) cluster registration and installs He
     k8s-cluster-name: ${{ secrets.MY_K8S_CLUSTER_NAME }} #optional
     k8s-user-name: ${{ secrets.MY_K8S_USER_NAME }} #optional
     kubectl-version: latest #optional, default: latest
-    helm-version: 3.12.3 #optional, default: 3.12.3
+    helm-version: 3.13.0 #optional, default: 3.13.0
 ```
 
 ## Requirements
