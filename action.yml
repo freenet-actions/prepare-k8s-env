@@ -22,7 +22,7 @@ inputs:
   helm-version:
     description: "helm version"
     required: true
-    default: "3.14.0"
+    default: "3.14.1"
 
 runs:
   using: "composite"
