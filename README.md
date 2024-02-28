@@ -7,7 +7,7 @@ This action implements the Kubernetes (K8s) cluster registration and installs He
 # Usage
 ## Login to k8s cluster
 ```yaml
-- uses: freenet-actions/prepare-k8s-env@v1
+- uses: freenet-actions/prepare-k8s-env@v2
   with:
     # in this case the secrets previously must be set bevor workflow run
     k8s-host-url: ${{ secrets.MY_K8S_HOST_URL }}
@@ -15,7 +15,7 @@ This action implements the Kubernetes (K8s) cluster registration and installs He
     k8s-cluster-name: ${{ secrets.MY_K8S_CLUSTER_NAME }} #optional
     k8s-user-name: ${{ secrets.MY_K8S_USER_NAME }} #optional
     kubectl-version: latest #optional, default: latest
-    helm-version: 3.14.2 #optional, default: 3.14.2
+    helm-version: latest #optional, default: latest
 ```
 
 ## Requirements
